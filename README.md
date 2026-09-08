@@ -1,5 +1,7 @@
 # Enviro365 Investments — Withdrawal Notice System
 
+[![CI](https://github.com/drico999/andries-enviro365-withdrawal-system/actions/workflows/ci.yml/badge.svg)](https://github.com/drico999/andries-enviro365-withdrawal-system/actions/workflows/ci.yml)
+
 Junior Software Developer Assessment (eTalente, 2026) — a full-stack system that lets
 Enviro365 investors view their portfolio, submit withdrawal notices against real-world
 business rules, review their withdrawal history, and download a CSV statement.
@@ -23,6 +25,7 @@ required to run it.
 
 ```
 enviro365-withdrawal-system/
+├── .github/workflows/         CI pipeline (backend build+test, frontend sanity checks)
 ├── backend/                  Spring Boot API
 │   └── src/main/java/com/enviro/assessment/junior/andries/
 │       ├── model/            JPA entities (Investor, Product, WithdrawalNotice, enums)
@@ -58,6 +61,20 @@ To run the unit tests:
 ```bash
 mvn test
 ```
+
+## CI
+
+Every push and pull request to `main` runs [`.github/workflows/ci.yml`](./.github/workflows/ci.yml)
+via GitHub Actions:
+
+- **Backend job** — sets up JDK 17, then runs `mvn clean verify` inside `backend/`, which
+  compiles the project and runs the full `WithdrawalServiceTest` suite. Test reports are
+  uploaded as a build artifact so failures can be inspected without re-running locally.
+- **Frontend job** — since the frontend has no build step, this job just runs a Node
+  syntax check on `app.js` (`node --check`) and confirms `index.html`, `styles.css`, and
+  `app.js` are all present, catching obvious breakage before it reaches `main`.
+
+Both jobs must pass before a PR is considered mergeable.
 
 ### 2. Frontend
 
@@ -239,5 +256,3 @@ confirmed by the toast, with the new notice reflected in the history table.
 - **CSV export takes an optional date range** on top of the mandatory product filter,
   since "with filtering" was underspecified in the brief and a statement is normally
   requested for a period, not just a product.
-#   a n d r i e s - e n v i r o 3 6 5 - w i t h d r a w a l - s y s t e m  
- 
