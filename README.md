@@ -91,6 +91,14 @@ It calls the API at `http://localhost:8080/api` (see the `API_BASE` constant at 
 of `app.js` if your backend runs elsewhere). CORS is already opened up on the backend
 for local development.
 
+## Code quality
+
+The repository is connected to [CodeScene](https://codescene.io) for ongoing code
+health analysis — hotspot detection, complexity trends, and automated review comments
+on pull requests. This wasn't part of the brief, but was set up as an extra check
+against the codebase beyond what unit tests and CI cover, and to have a second,
+independent read on code health going into the follow-up interview.
+
 ## Demo data
 
 Seeded on startup, deliberately covering both sides of the retirement-age rule:
@@ -190,30 +198,27 @@ The brief asked for at least three; this submission includes four:
 
 ## AI usage disclosure
 
-This project was built with the assistance of Claude (Anthropic), as permitted by the
-brief. Specifically:
+AI (Claude, Anthropic) was used in a targeted way during this project, as permitted by
+the brief. Specifically:
 
-- The overall project structure (layered backend: model → repository → service →
-  controller, with a DTO boundary and centralised exception handling) was scaffolded
-  with AI assistance.
-- The three withdrawal business rules, their ordering, and their error messages were
-  written with AI assistance and then reviewed line by line — see the code comments in
-  `WithdrawalService` explaining the reasoning behind each rule and behind decisions
-  such as computing age from `LocalDate` rather than storing a static age field.
-  Ordering matters: retirement-age eligibility is checked first, since it determines
-  whether a retirement withdrawal is possible at all before the amount is checked
-  against the balance and the 90% cap.
-- The frontend's visual design (the "ledger ticket" motif, navy/brass/paper palette,
-  serif-for-totals + monospace-for-figures typography) was an AI-assisted design
-  choice, made deliberately to avoid a generic admin-dashboard look while fitting the
-  subject matter — a financial withdrawal notice.
-- The unit tests were AI-assisted; each test's intent (which rule/edge case it proves)
-  is documented in its name and the class-level Javadoc.
+- **Styling** — the frontend's visual design (the "ledger ticket" motif, navy/brass/paper
+  palette, serif-for-totals + monospace-for-figures typography) was worked out with AI
+  assistance, aimed at avoiding a generic admin-dashboard look while fitting the subject
+  matter — a financial withdrawal notice.
+- **Unit tests** — the `WithdrawalServiceTest` suite was written with AI assistance;
+  each test's intent (which rule or edge case it proves) is documented in its name and
+  the class-level Javadoc.
+- **Debugging** — AI was used to help track down a bug where an investor's portfolio
+  wasn't loading in the UI (the dashboard would get stuck on "Loading investor…" with a
+  generic "Could not load that investor's portfolio" error). The root cause turned out to
+  be a duplicate `id` attribute on an element in `index.html`, which silently broke the
+  `document.getElementById` lookup `app.js` relied on to render the totals.
 
-I'm ready to walk through and justify any part of this implementation — including the
-package layer choices, the rounding behaviour (`HALF_UP` to 2 decimal places
-throughout, since these are monetary amounts), and why the age check uses `Period`
-rather than a stored age.
+The core backend logic — the business rules, layering, and API design — was written and
+is fully understood by me, and I'm ready to walk through and justify any part of it at
+interview, including the rounding behaviour (`HALF_UP` to 2 decimal places throughout,
+since these are monetary amounts) and why the age check uses `Period` rather than a
+stored age.
 
 ## Screenshots
 
