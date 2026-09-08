@@ -214,11 +214,6 @@ the brief. Specifically:
   be a duplicate `id` attribute on an element in `index.html`, which silently broke the
   `document.getElementById` lookup `app.js` relied on to render the totals.
 
-The core backend logic — the business rules, layering, and API design — was written and
-is fully understood by me, and I'm ready to walk through and justify any part of it at
-interview, including the rounding behaviour (`HALF_UP` to 2 decimal places throughout,
-since these are monetary amounts) and why the age check uses `Period` rather than a
-stored age.
 
 ## Screenshots
 
