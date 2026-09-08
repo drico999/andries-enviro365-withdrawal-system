@@ -239,5 +239,3 @@ confirmed by the toast, with the new notice reflected in the history table.
 - **CSV export takes an optional date range** on top of the mandatory product filter,
   since "with filtering" was underspecified in the brief and a statement is normally
   requested for a period, not just a product.
-#   a n d r i e s - e n v i r o 3 6 5 - w i t h d r a w a l - s y s t e m  
- 
