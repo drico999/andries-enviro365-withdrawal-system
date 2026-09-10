@@ -6,10 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * Entry point for the Enviro365 Investments Withdrawal Notice System.
  *
- * AI USAGE DISCLOSURE: This project was scaffolded and written with the
- * assistance of an AI coding assistant (Claude). All generated code has
- * been reviewed; see README.md "AI Usage" section for details on what was
- * AI-assisted and what design decisions were made deliberately.
+ * AI USAGE DISCLOSURE: AI assistance was used in a targeted way on this
+ * project (styling, unit tests, and one debugging session) — see README.md
+ * "AI usage disclosure" section for details.
  */
 @SpringBootApplication
 public class Enviro365Application {
